@@ -1,5 +1,3 @@
-// Importing required modules
-// eslint-disable-next-line import/no-extraneous-dependencies, node/no-extraneous-require
 const express = require("express");
 const dotenV = require("dotenv");
 // eslint-disable-next-line import/no-extraneous-dependencies

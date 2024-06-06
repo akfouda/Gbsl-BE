@@ -17,7 +17,7 @@ dotenV.config({ path: "congfig.env" });
 // Initialize Express app
 const app = express();
 // eslint-disable-next-line no-use-before-define
-app.use(cors({ origin: "http://localhost:4200" }));
+app.use(cors({ origin: "https://gbsl-be-f1uh.vercel.app" }));
 
 // Middleware to parse JSON bodies
 app.use(express.json());

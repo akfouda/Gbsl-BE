@@ -26,9 +26,9 @@ app.use(express.json());
 dbConnection();
 
 // Route for category APIs
-app.use("/api/v1/category", categoryRoute); // Added categoryRoute to middleware stack
-app.use("/api/v1/subcategory", subCategoryRoute); // Added categoryRoute to middleware stack
-app.use("/api/v1/shipment", shipmentRoute); // Added categoryRoute to middleware stack
+app.use("/v1/category", categoryRoute); // Added categoryRoute to middleware stack
+app.use("/v1/subcategory", subCategoryRoute); // Added categoryRoute to middleware stack
+app.use("/v1/shipment", shipmentRoute); // Added categoryRoute to middleware stack
 
 // Middleware to handle undefined routes
 app.all("*", (req, res, next) => {

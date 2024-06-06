@@ -15,7 +15,13 @@ dotenV.config({ path: "congfig.env" });
 // Initialize Express app
 const app = express();
 // eslint-disable-next-line no-use-before-define
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 app.use(express.static("public"));
 
 // Middleware to parse JSON bodies

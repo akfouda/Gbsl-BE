@@ -39,7 +39,7 @@ app.all("*", (req, res, next) => {
 app.use(globalError);
 
 // Define the port number
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // Start the server
 const server = app.listen(port, () =>

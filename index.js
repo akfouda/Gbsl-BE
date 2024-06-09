@@ -5,8 +5,6 @@ const cors = require("cors"); // Install with npm install cors
 const dbConnection = require("./config/db"); // Corrected the import
 const ApiError = require("./utils/apiErorr");
 const globalError = require("./middlewares/errorMiddleware");
-const categoryRoute = require("./api/categoryRoute");
-const subCategoryRoute = require("./api/subCategoryRoute");
 const shipmentRoute = require("./api/shipmetRoute");
 
 // Load environment variables from config file
@@ -31,8 +29,6 @@ app.use(express.json());
 dbConnection();
 
 // Route for category APIs
-app.use("/api/v1/category", categoryRoute); // Added categoryRoute to middleware stack
-app.use("/api/v1/subcategory", subCategoryRoute); // Added categoryRoute to middleware stack
 app.use("/api/v1/shipment", shipmentRoute); // Added categoryRoute to middleware stack
 
 // Middleware to handle undefined routes

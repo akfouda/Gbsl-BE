@@ -6,6 +6,8 @@ const dbConnection = require("./config/db"); // Corrected the import
 const ApiError = require("./utils/apiErorr");
 const globalError = require("./middlewares/errorMiddleware");
 const shipmentRoute = require("./api/shipmetRoute");
+const userRoute = require("./api/userRoute");
+const authRoute = require("./api/authRoute");
 
 // Load environment variables from config file
 dotenV.config({ path: "congfig.env" });
@@ -30,6 +32,8 @@ dbConnection();
 
 // Route for category APIs
 app.use("/api/v1/shipment", shipmentRoute); // Added categoryRoute to middleware stack
+app.use("/api/v1/user", userRoute); // Added categoryRoute to middleware stack
+app.use("/api/v1/auth", authRoute); // Added categoryRoute to middleware stack
 
 // Middleware to handle undefined routes
 app.all("*", (req, res, next) => {

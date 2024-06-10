@@ -1,15 +1,7 @@
 // Importing required modules
 // eslint-disable-next-line import/no-extraneous-dependencies, node/no-extraneous-require
 const express = require("express");
-const {
-  getShipments,
-  createShipment,
-  getShipment,
-  updateShipment,
-  deleteShipment,
-} = require("../services/shipment.service");
-
-const { allowedTo, protect } = require("../services/auth.service");
+const { login } = require("../services/auth.service");
 
 const router = express.Router();
 
@@ -35,11 +27,6 @@ const router = express.Router();
  */
 
 // Define routes for handling category operations
-router.route("/").get(protect, getShipments).post(protect, createShipment);
-router
-  .route("/:id")
-  .get(protect, getShipment)
-  .put(protect, updateShipment)
-  .delete(protect, allowedTo("admin"), deleteShipment);
+router.route("/login").post(login);
 
 module.exports = router;

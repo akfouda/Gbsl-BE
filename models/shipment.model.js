@@ -107,13 +107,13 @@ const insertShipmentSchema = new mongoose.Schema(
   {
     timestamps: true,
     // to enable virtual populate
-    toJSON: { virtuals: true },
+    toJSON: { virtuals: true },lo
     toObject: { virtuals: true },
   }
 );
 const setImageURL = (doc) => {
   if (doc.image) {
-    const imageUrl = `http://localhost:8080/docs/${doc.image}`;
+    const imageUrl = `https://gbsl-be.vercel.app/${doc.image}`;
     doc.image = imageUrl;
   }
 };

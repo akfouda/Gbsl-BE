@@ -7,6 +7,8 @@ const {
   getShipment,
   updateShipment,
   deleteShipment,
+  uploadCategoryImage,
+  resizeImage,
 } = require("../services/shipment.service");
 
 const { allowedTo, protect } = require("../services/auth.service");
@@ -35,7 +37,10 @@ const router = express.Router();
  */
 
 // Define routes for handling category operations
-router.route("/").get(protect, getShipments).post(protect, createShipment);
+router
+  .route("/")
+  .get(protect, getShipments)
+  .post(protect, uploadCategoryImage, resizeImage, createShipment);
 router
   .route("/:id")
   .get(protect, getShipment)

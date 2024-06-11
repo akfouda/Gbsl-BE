@@ -102,6 +102,7 @@ const insertShipmentSchema = new mongoose.Schema(
     totalAmountReceived: {
       type: Number,
     },
+    image: String,
   },
   {
     timestamps: true,
@@ -110,5 +111,20 @@ const insertShipmentSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+const setImageURL = (doc) => {
+  if (doc.image) {
+    const imageUrl = `https://gbsl-be.vercel.app/docs/${doc.image}`;
+    doc.image = imageUrl;
+  }
+};
+// findOne, findAll and update
+insertShipmentSchema.post("init", (doc) => {
+  setImageURL(doc);
+});
+
+// create
+insertShipmentSchema.post("save", (doc) => {
+  setImageURL(doc);
+});
 
 module.exports = mongoose.model("InsertShippmentSchema", insertShipmentSchema);

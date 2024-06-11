@@ -1,16 +1,33 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // Import necessary modules and dependencies
 const { default: slugify } = require("slugify");
 const asyncHandler = require("express-async-handler");
+const { v4: uuidv4 } = require("uuid");
+const sharp = require("sharp");
 const ShipMentModel = require("../models/shipment.model");
 const ApiError = require("../utils/apiErorr");
+const { uploadSingleImage } = require("../middlewares/uploadImgMiddleware");
 
-const filterSubCategoryById = (req, res, next) => {
-  let filterShipment = {};
-  if (req.params.clientName)
-    filterShipment = { clientName: req.params.clientName };
-  req.filterShipment = filterShipment;
+// Upload single image
+const uploadCategoryImage = uploadSingleImage("image");
+
+// Image processing
+const resizeImage = asyncHandler(async (req, res, next) => {
+  const filename = `docs-${uuidv4()}-${Date.now()}.jpeg`;
+
+  if (req.file) {
+    await sharp(req.file.buffer)
+      .resize(600, 600)
+      .toFormat("jpeg")
+      .jpeg({ quality: 95 })
+      .toFile(`uploads/docs/${filename}`);
+
+    // Save image into our db
+    req.body.image = filename;
+  }
+
   next();
-};
+});
 /**
  * Retrieves paginated categories.
  * @param {Object} req - Express request object.
@@ -41,11 +58,11 @@ const getShipments = asyncHandler(async (req, res) => {
   if (req.query.customsCertificateNumber) {
     query.customsCertificateNumber = req.query.customsCertificateNumber; // Direct match or use regex if needed
   }
-  console.log('Query:', query);
+  console.log("Query:", query);
 
   // Extract pagination parameters from query or set defaults
   const page = req.query.page * 1 || 1;
-  const limit = req.query.limit * 1 || 5;
+  const limit = req.query.limit * 1 || 10;
   const skip = (page - 1) * limit;
   const total = await ShipMentModel.countDocuments(query);
 
@@ -96,7 +113,7 @@ const createShipment = asyncHandler(async (req, res) => {
   const shipment = await ShipMentModel.create(req.body);
 
   // Respond with the created category
-  res.status(201).json({ message: "success" });
+  res.status(201).json({ message: "success", data: shipment });
 });
 
 /**
@@ -155,5 +172,6 @@ module.exports = {
   getShipment,
   updateShipment,
   deleteShipment,
-  filterSubCategoryById,
+  uploadCategoryImage,
+  resizeImage,
 };

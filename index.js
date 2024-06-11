@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require("express");
 const dotenV = require("dotenv");
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -26,6 +28,7 @@ app.use(express.static("public"));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Connect to the database
 dbConnection();

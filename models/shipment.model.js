@@ -107,7 +107,7 @@ const insertShipmentSchema = new mongoose.Schema(
   {
     timestamps: true,
     // to enable virtual populate
-    toJSON: { virtuals: true },lo
+    toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );

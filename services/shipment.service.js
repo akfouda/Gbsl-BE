@@ -24,17 +24,30 @@ const getShipments = asyncHandler(async (req, res) => {
   let query = {};
   // eslint-disable-next-line no-undef
   if (req.query.acidNumber) {
-    // eslint-disable-next-line no-undef
-    query.acidNumber = req.query.acidNumber; // Case-insensitive match
+    query.acidNumber = req.query.acidNumber; // Case-insensitive match (if needed, use regex)
   }
   if (req.query.blNumber) {
-    query.blNumber = req.query.blNumber; // Use direct match or regex if needed
+    query.blNumber = req.query.blNumber; // Direct match or use regex if needed
   }
+  if (req.query.clientName) {
+    query.clientName = req.query.clientName; // Direct match or use regex if needed
+  }
+  if (req.query.invoiceNumber) {
+    query.invoiceNumber = req.query.invoiceNumber; // Direct match or use regex if needed
+  }
+  if (req.query.material) {
+    query.material = req.query.material; // Direct match or use regex if needed
+  }
+  if (req.query.customsCertificateNumber) {
+    query.customsCertificateNumber = req.query.customsCertificateNumber; // Direct match or use regex if needed
+  }
+  console.log('Query:', query);
+
   // Extract pagination parameters from query or set defaults
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 5;
   const skip = (page - 1) * limit;
-  const total = await ShipMentModel.countDocuments({});
+  const total = await ShipMentModel.countDocuments(query);
 
   // Retrieve categories based on pagination
   const shippmentdata = await ShipMentModel.find(query).skip(skip).limit(limit);

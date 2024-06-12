@@ -9,6 +9,7 @@ const {
   deleteUser,
 } = require("../services/user.service");
 
+const { allowedTo, protect } = require("../services/auth.service");
 
 const router = express.Router();
 
@@ -34,7 +35,7 @@ const router = express.Router();
  */
 
 // Define routes for handling category operations
-router.route("/").get(getUsers).post(createUser);
+router.route("/").get(getUsers).post(protect, allowedTo("manager"), createUser);
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
 module.exports = router;

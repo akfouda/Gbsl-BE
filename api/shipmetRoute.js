@@ -45,6 +45,6 @@ router
   .route("/:id")
   .get(protect, getShipment)
   .put(protect, updateShipment)
-  .delete(protect, allowedTo("admin"), deleteShipment);
+  .delete(protect, allowedTo("admin", "manager"), deleteShipment);
 
 module.exports = router;

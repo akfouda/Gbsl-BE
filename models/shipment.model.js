@@ -19,13 +19,13 @@ const insertShipmentSchema = new mongoose.Schema(
       default: false,
     },
     blNumber: {
-      type: Number,
+      type: String,
     },
     hsCode: {
       type: String,
     },
     blWeight: {
-      type: Number,
+      type: String,
     },
     manufacturerName: {
       type: String,
@@ -45,10 +45,10 @@ const insertShipmentSchema = new mongoose.Schema(
       type: Date,
     },
     invoiceNumber: {
-      type: Number,
+      type: String,
     },
     invoiceAmount: {
-      type: Number,
+      type: String,
     },
     invoiceDueDate: {
       type: Date,
@@ -87,11 +87,11 @@ const insertShipmentSchema = new mongoose.Schema(
       type: Date,
     },
     acidNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     customsCertificateNumber: {
-      type: Number,
+      type: String,
     },
     form4Bank: {
       type: String,
@@ -100,7 +100,7 @@ const insertShipmentSchema = new mongoose.Schema(
       type: String,
     },
     totalAmountReceived: {
-      type: Number,
+      type: String,
     },
     image: String,
   },

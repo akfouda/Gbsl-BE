@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 const express = require("express");
 const dotenV = require("dotenv");
@@ -10,6 +10,7 @@ const globalError = require("./middlewares/errorMiddleware");
 const shipmentRoute = require("./api/shipmetRoute");
 const userRoute = require("./api/userRoute");
 const authRoute = require("./api/authRoute");
+const dashBoardRoute = require("./api/dashboardRoute");
 
 // Load environment variables from config file
 dotenV.config({ path: "congfig.env" });
@@ -28,7 +29,7 @@ app.use(express.static("public"));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'tmp')));
+app.use(express.static(path.join(__dirname, "tmp")));
 
 // Connect to the database
 dbConnection();
@@ -37,6 +38,7 @@ dbConnection();
 app.use("/api/v1/shipment", shipmentRoute); // Added categoryRoute to middleware stack
 app.use("/api/v1/user", userRoute); // Added categoryRoute to middleware stack
 app.use("/api/v1/auth", authRoute); // Added categoryRoute to middleware stack
+app.use("/api/v1/dashborad", dashBoardRoute); // Added categoryRoute to middleware stack
 
 // Middleware to handle undefined routes
 app.all("*", (req, res, next) => {

@@ -113,7 +113,7 @@ const insertShipmentSchema = new mongoose.Schema(
 );
 const setImageURL = (doc) => {
   if (doc.image) {
-    const imageUrl = `https://gbsl-be.vercel.app/docs/${doc.image}`;
+    const imageUrl = `https://gbsl-be.vercel.app/categories/${doc.image}`;
     doc.image = imageUrl;
   }
 };

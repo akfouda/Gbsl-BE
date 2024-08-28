@@ -102,7 +102,7 @@ const insertShipmentSchema = new mongoose.Schema(
     totalAmountReceived: {
       type: String,
     },
-    image: String,
+    Doc: String,
   },
   {
     timestamps: true,
@@ -111,18 +111,5 @@ const insertShipmentSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-const setImageURL = (doc) => {
-  if (doc.image) {
-  }
-};
-// findOne, findAll and update
-insertShipmentSchema.post("init", (doc) => {
-  setImageURL(doc);
-});
-
-// create
-insertShipmentSchema.post("save", (doc) => {
-  setImageURL(doc);
-});
 
 module.exports = mongoose.model("InsertShippmentSchema", insertShipmentSchema);

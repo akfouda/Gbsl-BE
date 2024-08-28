@@ -2,30 +2,11 @@
 // Import necessary modules and dependencies
 const { default: slugify } = require("slugify");
 const asyncHandler = require("express-async-handler");
-const { v4: uuidv4 } = require("uuid");
-const sharp = require("sharp");
 const ShipMentModel = require("../models/shipment.model");
 const ApiError = require("../utils/apiErorr");
-const { uploadSingleImage } = require("../middlewares/uploadImgMiddleware");
 
 // Upload single image
-const uploadCategoryImage = uploadSingleImage("image");
 
-// Image processing
-const resizeImage = asyncHandler(async (req, res, next) => {
-  const filename = `docs-${uuidv4()}-${Date.now()}.jpeg`;
-
-  if (req.file) {
-    await sharp(req.file.buffer)
-      .resize(600, 600)
-      .toFormat("jpeg")
-      .jpeg({ quality: 95 })
-      .toFile(`uploads/docs/${filename}`);
-    // Save image into our db
-    req.body.image = req.file.url;
-  }
-  next();
-});
 /**
  * Retrieves paginated categories.
  * @param {Object} req - Express request object.
@@ -120,26 +101,22 @@ const createShipment = asyncHandler(async (req, res) => {
  * @param {Object} res - Express response object.
  */
 const updateShipment = asyncHandler(async (req, res, next) => {
-  // Extract category ID and updated name from request parameters and body
   const { id } = req.params;
   req.body.slug = slugify(req.body.clientName);
-  // Respond with the created category
-  res.status(201).json({ message: "success" });
+  
+  try {
+    const shipment = await ShipMentModel.findOneAndUpdate({ _id: id }, req.body, { new: true });
 
-  // Update the category by ID with the new name and slugify the name
-  const shipment = await ShipMentModel.findOneAndUpdate({ _id: id }, req.body, {
-    new: true,
-  });
+    if (!shipment) {
+      return next(new ApiError("No shipment found", 404));
+    }
 
-  // Check if shipment exists
-  if (!shipment) {
-    return next(new ApiError("no shipment  found", 404));
+    // Send response only once
+    res.status(200).json({ data: shipment });
+  } catch (err) {
+    // Handle errors
+    next(new ApiError("An error occurred", 500));
   }
-
-  // Respond with the updated category
-  res.status(200).json({
-    data: shipment,
-  });
 });
 
 /**
@@ -170,6 +147,5 @@ module.exports = {
   getShipment,
   updateShipment,
   deleteShipment,
-  uploadCategoryImage,
-  resizeImage,
+
 };

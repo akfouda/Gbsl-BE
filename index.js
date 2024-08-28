@@ -29,7 +29,7 @@ app.use(express.static("public"));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "uploads")));
+// app.use(express.static(path.join(__dirname, "uploads")));
 
 // Connect to the database
 dbConnection();

@@ -8,11 +8,10 @@ const factory = require("./handlersFactory");
 const { uploadSingleImage } = require("../middlewares/uploadImgMiddleware");
 
 // Upload single image
-const uploadCategoryImage = uploadSingleImage("image");
+const uploadCategoryImage = uploadSingleImage("Doc");
 
 // Image processing
 const resizeImage = asyncHandler(async (req, res, next) => {
-  console.log(req, "a7aaaaaaaaaa");
   const filename = req.Doc;
   if (req) {
     await sharp(req.file.buffer)

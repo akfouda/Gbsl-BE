@@ -113,6 +113,15 @@ const insertShipmentSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+const setImageURL = (doc) => doc;
+// findOne, findAll and update
+insertShipmentSchema.post("init", (doc) => {
+  setImageURL(doc);
+});
 
+// create
+insertShipmentSchema.post("save", (doc) => {
+  setImageURL(doc);
+});
 
 module.exports = mongoose.model("InsertShippmentSchema", insertShipmentSchema);

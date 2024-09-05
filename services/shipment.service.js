@@ -13,14 +13,14 @@ const uploadCategoryImage = uploadSingleImage("image");
 // Image processing
 const resizeImage = asyncHandler(async (req, res, next) => {
   console.log(req, "a7aaaaaaaaaa");
-  const filename = req.doc;
+  const filename = req.Doc;
   if (req) {
     await sharp(req.file.buffer)
       .resize(600, 600)
       .toFormat("jpeg")
       .jpeg({ quality: 95 });
     // Save image into our db
-    req.body.doc = filename;
+    req.body.Doc = filename;
   }
   next();
 });

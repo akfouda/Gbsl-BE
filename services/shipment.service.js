@@ -4,9 +4,26 @@ const { default: slugify } = require("slugify");
 const asyncHandler = require("express-async-handler");
 const ShipMentModel = require("../models/shipment.model");
 const ApiError = require("../utils/apiErorr");
+const factory = require('./handlersFactory');
+const { uploadSingleImage } = require('../middlewares/uploadImgMiddleware');
 
 // Upload single image
+exports.uploadCategoryImage = uploadSingleImage('image');
 
+// Image processing
+exports.resizeImage = asyncHandler(async (req, res, next) => {
+  console.log(req,"a7aaaaaaaaaa")
+  const filename = req.doc;
+  if (req) {
+    await sharp(req.file.buffer)
+      .resize(600, 600)
+      .toFormat('jpeg')
+      .jpeg({ quality: 95 })
+    // Save image into our db
+    req.body.image = filename;
+  }
+  next();
+});
 /**
  * Retrieves paginated categories.
  * @param {Object} req - Express request object.
@@ -100,24 +117,9 @@ const createShipment = asyncHandler(async (req, res) => {
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */
-const updateShipment = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
-  req.body.slug = slugify(req.body.clientName);
-  
-  try {
-    const shipment = await ShipMentModel.findOneAndUpdate({ _id: id }, req.body, { new: true });
 
-    if (!shipment) {
-      return next(new ApiError("No shipment found", 404));
-    }
 
-    // Send response only once
-    res.status(200).json({ data: shipment });
-  } catch (err) {
-    // Handle errors
-    next(new ApiError("An error occurred", 500));
-  }
-});
+const updateShipment = factory.updateOne(ShipMentModel);
 
 /**
  * Deletes a category by ID.

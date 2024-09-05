@@ -7,6 +7,8 @@ const {
   getShipment,
   updateShipment,
   deleteShipment,
+  resizeImage,
+  uploadCategoryImage,
 } = require("../services/shipment.service");
 
 const { allowedTo, protect } = require("../services/auth.service");
@@ -39,7 +41,7 @@ router.route("/").get(protect, getShipments).post(protect, createShipment);
 router
   .route("/:id")
   .get(protect, getShipment)
-  .put(protect, updateShipment)
+  .put(protect, uploadCategoryImage, resizeImage, updateShipment)
   .delete(protect, allowedTo("admin", "manager"), deleteShipment);
 
 module.exports = router;

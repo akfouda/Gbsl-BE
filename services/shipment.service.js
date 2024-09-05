@@ -4,23 +4,23 @@ const { default: slugify } = require("slugify");
 const asyncHandler = require("express-async-handler");
 const ShipMentModel = require("../models/shipment.model");
 const ApiError = require("../utils/apiErorr");
-const factory = require('./handlersFactory');
-const { uploadSingleImage } = require('../middlewares/uploadImgMiddleware');
+const factory = require("./handlersFactory");
+const { uploadSingleImage } = require("../middlewares/uploadImgMiddleware");
 
 // Upload single image
-exports.uploadCategoryImage = uploadSingleImage('image');
+const uploadCategoryImage = uploadSingleImage("image");
 
 // Image processing
-exports.resizeImage = asyncHandler(async (req, res, next) => {
-  console.log(req,"a7aaaaaaaaaa")
+const resizeImage = asyncHandler(async (req, res, next) => {
+  console.log(req, "a7aaaaaaaaaa");
   const filename = req.doc;
   if (req) {
     await sharp(req.file.buffer)
       .resize(600, 600)
-      .toFormat('jpeg')
-      .jpeg({ quality: 95 })
+      .toFormat("jpeg")
+      .jpeg({ quality: 95 });
     // Save image into our db
-    req.body.image = filename;
+    req.body.doc = filename;
   }
   next();
 });
@@ -118,7 +118,6 @@ const createShipment = asyncHandler(async (req, res) => {
  * @param {Object} res - Express response object.
  */
 
-
 const updateShipment = factory.updateOne(ShipMentModel);
 
 /**
@@ -149,5 +148,6 @@ module.exports = {
   getShipment,
   updateShipment,
   deleteShipment,
-
+  uploadCategoryImage,
+  resizeImage,
 };

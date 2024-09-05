@@ -102,7 +102,9 @@ const insertShipmentSchema = new mongoose.Schema(
     totalAmountReceived: {
       type: String,
     },
-    Doc: String,
+    Doc: {
+      type: String,
+    },
   },
   {
     timestamps: true,

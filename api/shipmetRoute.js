@@ -40,11 +40,11 @@ const router = express.Router();
 router
   .route("/")
   .get(protect, getShipments)
-  .post(protect, uploadCategoryImage, resizeImage, createShipment);
+  .post(protect, createShipment);
 router
   .route("/:id")
   .get(protect, getShipment)
-  .put(protect, uploadCategoryImage, resizeImage, updateShipment)
+  .put(protect, updateShipment)
   .delete(protect, allowedTo("admin", "manager"), deleteShipment);
 
 module.exports = router;

@@ -1,27 +1,27 @@
 const factory = require("../utils/handlersFactory");
-const Hamed = require("../models/hamed.model");
+const hamed = require("../models/hamed.model");
 
-// @desc    Get list of Hamed
-// @route   GET /api/v1/Hamed
+// @desc    Get list of hamed
+// @route   GET /api/v1/hamed
 // @access  Public
-exports.getAll = factory.getAll(Hamed);
+exports.getAll = factory.getAll(hamed);
 
-// @desc    Get specific Hamed by id
-// @route   GET /api/v1/Hamed/:id
+// @desc    Get specific hamed by id
+// @route   GET /api/v1/hamed/:id
 // @access  Public
-exports.get = factory.getOne(Hamed);
+exports.get = factory.getOne(hamed);
 
-// @desc    Create Hamed
-// @route   POST  /api/v1/Hamed
+// @desc    Create hamed
+// @route   POST  /api/v1/hamed
 // @access  Private
-exports.create = factory.createOne(Hamed);
+exports.create = factory.createOne(hamed);
 
-// @desc    Update specific Hamed
-// @route   PUT /api/v1/Hamed/:id
+// @desc    Update specific hamed
+// @route   PUT /api/v1/hamed/:id
 // @access  Private
-exports.update = factory.updateOne(Hamed);
+exports.update = factory.updateOne(hamed);
 
-// @desc    Delete specific Hamed
-// @route   DELETE /api/v1/Hamed/:id
+// @desc    Delete specific hamed
+// @route   DELETE /api/v1/hamed/:id
 // @access  Private
-exports.deleteOne = factory.deleteOne(Hamed);
+exports.deleteOne = factory.deleteOne(hamed);

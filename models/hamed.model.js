@@ -6,7 +6,6 @@ const hamedSchema = new Schema({
   active: {
     type: Boolean,
     default:true
-
 },
 
 });

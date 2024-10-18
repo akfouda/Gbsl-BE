@@ -40,7 +40,7 @@ app.use("/api/v1/shipment", shipmentRoute); // Added categoryRoute to middleware
 app.use("/api/v1/user", userRoute); // Added categoryRoute to middleware stack
 app.use("/api/v1/auth", authRoute); // Added categoryRoute to middleware stack
 app.use("/api/v1/dashborad", dashBoardRoute); // Added categoryRoute to middleware stack
-app.use("/api/v1/hamed", hamedRoute); // Added categoryRoute to middleware stack
+app.use("/api/v1/test", hamedRoute); // Added categoryRoute to middleware stack
 
 // Middleware to handle undefined routes
 app.all("*", (req, res, next) => {

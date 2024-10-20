@@ -3,7 +3,7 @@
 const express = require("express");
 const {
   getDashboard,
- 
+  updateDashborad,
 } = require("../services/dashboard.service");
 
 const { allowedTo, protect } = require("../services/auth.service");
@@ -32,5 +32,9 @@ const router = express.Router();
  */
 
 // Define routes for handling category operations
-router.route("/").get(protect,allowedTo("manager"),getDashboard)
+router
+  .route("/")
+  .get(protect, allowedTo("manager"), getDashboard)
+  .put(updateDashborad);
+
 module.exports = router;

@@ -2,6 +2,7 @@
 const asyncHandler = require("express-async-handler");
 const UserModle = require("../models/user.model");
 const ShipMentModel = require("../models/shipment.model");
+const dashborad = require("../models/dashboard.model");
 
 /**
  * Retrieves paginated categories.
@@ -15,7 +16,9 @@ const getDashboard = asyncHandler(async (req, res) => {
   const userCount = await UserModle.countDocuments({});
   const shipMentCount = await ShipMentModel.countDocuments({});
   // Adjust the condition for freeShipMent
-  const freeShipMentCount = await ShipMentModel.countDocuments({ freeDays: { $exists: true, $ne: null } });
+  const freeShipMentCount = await ShipMentModel.countDocuments({
+    freeDays: { $exists: true, $ne: null },
+  });
 
   // Respond with paginated categories and total count
   res.status(200).json({
@@ -25,7 +28,10 @@ const getDashboard = asyncHandler(async (req, res) => {
   });
 });
 
+const updateDashborad = factory.updateOne(dashborad);
+
 // Export controller functions
 module.exports = {
   getDashboard,
+  updateDashborad,
 };

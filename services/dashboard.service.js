@@ -2,7 +2,6 @@
 const asyncHandler = require("express-async-handler");
 const UserModle = require("../models/user.model");
 const ShipMentModel = require("../models/shipment.model");
-const dashborad = require("../models/dashboard.model");
 
 /**
  * Retrieves paginated categories.
@@ -28,10 +27,8 @@ const getDashboard = asyncHandler(async (req, res) => {
   });
 });
 
-const updateDashborad = factory.updateOne(dashborad);
 
 // Export controller functions
 module.exports = {
   getDashboard,
-  updateDashborad,
 };

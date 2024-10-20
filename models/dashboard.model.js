@@ -12,10 +12,7 @@ const DashboardSchema = new mongoose.Schema(
     freeShipment: {
       type: number,
     },
-    active: {
-      type: Boolean,
-      default: true,
-    },
+
   },
   { timestamps: true }
 );
